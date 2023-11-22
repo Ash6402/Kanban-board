@@ -1,0 +1,9 @@
+@use '/src/mixins.scss' as mixins;
+
+.card{
+    width: inherit;
+    border: 1px solid black;
+    padding: 0.6rem;
+    border-radius: 10px;
+    background-color: goldenrod;
+}

@@ -1,0 +1,9 @@
+@mixin fullscreen {
+    width: 100vw;
+    height: 100vh;
+}
+
+@mixin dimensions($wd, $ht){
+    width: $wd;
+    height: $wd;
+}

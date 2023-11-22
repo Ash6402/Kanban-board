@@ -1,0 +1,27 @@
+@use '/src/mixins.scss' as mixins;
+
+.board{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    @include mixins.fullscreen;
+
+    .section{
+        padding: 0.6rem;
+        border-right: 2px solid black;
+    }
+
+    li{
+        list-style-type: none;
+    }
+}
+
+.heading{
+    font-size: 5rem;
+    text-align: center;
+}
+
+.add-button{
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+}

@@ -1,0 +1,17 @@
+.add-button{
+    padding: 1.2rem 3rem;
+    border-radius: 10px;
+    background-color: aqua;
+    cursor: pointer;
+    box-shadow: 3px 3px 10px 5px rgba(0,0,0, 0.4);
+    transition: 200ms;
+
+    &:hover{
+        background-color: cornflowerblue;
+    }
+
+    &:active{
+        transform: translate(3px, 3px);
+        box-shadow: 0px 0px 15px 0px rgba(0,0,0, 0.4);
+    }
+}

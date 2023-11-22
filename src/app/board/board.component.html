@@ -1,0 +1,29 @@
+<main>   
+   <div class="board">
+       <div class="todo section">
+            <ul>
+                <!-- <app-card [item]="listService.todo()" /> -->
+                <li *ngFor="let item of listService.todo()">
+                    <app-card [item]="item" />
+                </li>
+            </ul>
+       </div>
+       <div style="outline: 1px solid red;" (dragover)="drag($event)" (drop)="drop($event)" class="work-in-progress section">
+        <ul>
+            <!-- <app-card [item]="listService.workInProgress()" /> -->
+            <li *ngFor="let item of listService.workInProgress()">
+                <app-card [item]="item" />
+            </li>
+        </ul>
+       </div>
+       <div class="done section">
+        <ul>
+            <!-- <app-card [item]="listService.done()"  /> -->
+            <li *ngFor="let item of listService.done()">
+                <app-card [item]="item" />
+            </li>
+        </ul>
+       </div>
+   </div> 
+   <app-add-button class="add-button"/>
+</main>
