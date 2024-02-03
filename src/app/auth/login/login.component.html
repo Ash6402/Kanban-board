@@ -1,0 +1,30 @@
+<div>
+    <h1 class="heading header-color-secondary">
+        LOGIN
+    </h1>
+    @if(error()){
+        <div class="error">
+            <p class="err-msg">Invalid Credentials</p>
+        </div>
+    }
+    <form [formGroup]="form" class="form" (ngSubmit)="submit(form)">
+        <div class="input-field">
+            <label for="email" class="label">Email</label>
+            <input placeholder="Enter your e-mail" type="email" class="bg-dark" id="email" name="email" formControlName="email" />
+        </div>
+        <div class="input-field">
+            <label for="password" class="label">Password</label>
+            <input placeholder="Enter your password" type="password" class="bg-dark" id="password" formControlName="password"/>
+        </div>
+        <button [disabled]="!form.valid" class="submit-btn">
+            @if(loggingIn){
+                <app-loader size="small"/>
+            } @else {
+                Login
+            }
+        </button>
+    </form>
+    <div class="to-sign-up">
+        <a routerLink="/sign-up" class="link-to-sign-up font-light">Don't have an account? Sign Up</a>
+    </div>
+</div>

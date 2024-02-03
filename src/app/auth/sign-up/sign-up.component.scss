@@ -1,0 +1,52 @@
+@use '/src/mixins.scss' as mixins;
+@use '/src/color-variables.scss' as theme;
+
+:host{
+    @include mixins.authPage;
+    background-color: theme.$bg-color;
+}
+
+.heading{
+    text-align: center;
+}
+
+.error{
+    display: grid;
+    align-content: top;
+    height: 0.8rem;
+}
+
+.tip{
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+    color: rgb(212, 212, 212);
+}
+
+#username.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
+
+#email.ng-invalid.ng-touched, #email.already-exists{
+    border: 1px solid red;
+}
+
+#password.ng-invalid.ng-touched{
+    border: 1px solid red;
+}
+
+.err-msg{
+    font-size: 0.8rem;
+    color: red;
+    margin-left: 0.5rem;
+}
+
+.to-login{
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+}
+
+.link-to-login:hover{
+   text-decoration: underline;
+   cursor: pointer; 
+}

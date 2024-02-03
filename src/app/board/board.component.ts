@@ -1,25 +1,52 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, OnDestroy, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddButtonComponent } from '../shared/add-button/add-button.component';
-import { CardComponent } from '../card/card.component';
-import { ListService } from '../services/lists.service';
+import { AppButtonComponent } from '../shared/app-button/app-button.component';
+import { SectionComponent } from './section/section.component';
+import { DropDirective } from '../directives/drop.directive';
+import { SourceDirective } from '../directives/source.directive';
+import { DetailFormComponent} from '../detail-form/detail-form.component';
+import { HeaderComponent } from '../header/header.component';
+import { FirestoreService } from '../services/firestore.service';
+import { AuthService } from '../services/auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, AddButtonComponent, CardComponent],
+  imports: [
+    CommonModule, 
+    AppButtonComponent, 
+    SectionComponent, 
+    DropDirective, 
+    SourceDirective, 
+    DetailFormComponent,
+    HeaderComponent,
+  ],
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent {
-  listService = inject(ListService);
+export class BoardComponent implements OnDestroy {
+  private firestoreService = inject(FirestoreService);
+  private user = inject(AuthService).user;
+  private destroyRef = inject(DestroyRef);
+  
+  todo = this.firestoreService.todo;
+  workInProgress = this.firestoreService.workInProgress;
+  done = this.firestoreService.done;
+  
+  // Variable to control the insert-new-item-modal popup
+  insert: boolean = false;
 
-  drop(event){
-    console.log(event);
+  constructor(){
+    effect(() => {
+      if(this.user())
+        this.firestoreService.getItems(this.user().uid).pipe(
+          takeUntilDestroyed(this.destroyRef),
+      ).subscribe();
+    }, {allowSignalWrites: true})
   }
 
-  drag(event: Event){
-    event.preventDefault();
-    console.log("Hello");
+  ngOnDestroy(): void {
+    this.firestoreService.reset();
   }
 }

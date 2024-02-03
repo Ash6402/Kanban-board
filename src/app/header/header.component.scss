@@ -1,0 +1,7 @@
+@use '/src/color-variables.scss' as theme;
+
+.header{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}

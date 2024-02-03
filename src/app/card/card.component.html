@@ -1,3 +1,16 @@
-<div class="card" appDrag>
-    <h3>{{ item.text }}</h3>
+<div class="card" appDrag [item]="item">
+    <div class="head">
+        <h3 class="header-color-dark">{{ item.title }}</h3>
+        <button 
+            [appAnimate]="['rotate', 'expand']" [element]="details"
+            class="drop-btn"><i class="fa-solid fa-caret-down"></i>
+        </button>
+
+    </div>
+    <div class="details" #details>
+        <div class="description">
+            <p>Description</p>
+            <p class="font-dark">{{ item.description }}</p>
+        </div>
+    </div>
 </div>

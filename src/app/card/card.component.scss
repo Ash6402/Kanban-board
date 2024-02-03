@@ -1,9 +1,51 @@
 @use '/src/mixins.scss' as mixins;
+@use '/src/color-variables.scss' as theme;
 
 .card{
     width: inherit;
     border: 1px solid black;
     padding: 0.6rem;
     border-radius: 10px;
-    background-color: goldenrod;
+    background-color: theme.$accent-color;
+    .head{
+        display: grid;
+        grid-template-columns: 1fr min-content;
+        align-items: center;
+        
+        h3{
+            color: theme.$primary-color;
+        }
+        
+        .drop-btn{
+        background-color: transparent;
+        transition: 100ms;
+        }
+
+        i{
+        font-size: 1.4rem;
+            color: rgb(20, 0, 70);
+        }
+
+        i:hover{
+            cursor: pointer;
+        }
+        
+        .rotate{
+            transform: rotate(180deg);
+        }
+    }
+
+    .details{
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 100ms ease-out;
+
+        .description{
+            overflow: hidden;
+        }
+    }
+
+    .expand{
+        grid-template-rows: 1fr;
+    }
 }

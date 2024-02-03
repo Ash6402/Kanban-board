@@ -1,29 +1,20 @@
-<main>   
+<app-header />
+<main> 
    <div class="board">
-       <div class="todo section">
-            <ul>
-                <!-- <app-card [item]="listService.todo()" /> -->
-                <li *ngFor="let item of listService.todo()">
-                    <app-card [item]="item" />
-                </li>
-            </ul>
+       <div class="section todo" appDrop hovered="todo" [list]="todo">
+          <app-section [source]="todo" title="Todo" [items]="todo()" />          
+        </div>
+       <div class="section work-in-progress" hovered="work-in-progress" appDrop [list]="workInProgress" >
+          <app-section [source]="workInProgress" title="work in progress" [items]="workInProgress()" />           
        </div>
-       <div style="outline: 1px solid red;" (dragover)="drag($event)" (drop)="drop($event)" class="work-in-progress section">
-        <ul>
-            <!-- <app-card [item]="listService.workInProgress()" /> -->
-            <li *ngFor="let item of listService.workInProgress()">
-                <app-card [item]="item" />
-            </li>
-        </ul>
+       <div class="section done" hovered="done" appDrop [list]="done">
+          <app-section [source]="done" title="done" [items]="done()" />          
        </div>
-       <div class="done section">
-        <ul>
-            <!-- <app-card [item]="listService.done()"  /> -->
-            <li *ngFor="let item of listService.done()">
-                <app-card [item]="item" />
-            </li>
-        </ul>
-       </div>
-   </div> 
-   <app-add-button class="add-button"/>
+     </div> 
+     <app-button class="add-button" color="primary" (click)="insert=true">
+         <img src="../../assets/icons/add.png" /> 
+     </app-button>
+     @if(insert){
+          <app-add-new-form (close)="insert=false"></app-add-new-form>
+     }
 </main>

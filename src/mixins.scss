@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @mixin fullscreen {
     width: 100vw;
     height: 100vh;
@@ -6,4 +8,36 @@
 @mixin dimensions($wd, $ht){
     width: $wd;
     height: $wd;
+}
+
+@mixin authPage {
+    display: grid;
+    font-family: 'Open sans', 'sans-serif';
+    padding: 0.4rem;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    justify-items: center;
+    align-items: center;
+}
+
+@mixin hover($color){
+    &:hover{
+        background-color: color.adjust($color, $lightness: -5%);
+    }
+    
+    &:active{
+        transform: translate(1.5px, 1.5px);
+        box-shadow: 0px 0px 15px 0px rgba(0,0,0, 0.4);
+    }  
+}
+
+@mixin modal{
+    position: absolute;
+    height: 100%;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: grid;
+    place-content: center;
+    z-index: 100;
 }

@@ -1,0 +1,38 @@
+@use '/src/color-variables.scss' as theme;
+@use '/src/mixins.scss' as mixins;
+
+.app-button{
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 6px 3px rgba(0,0,0, 0.4);
+    transition: 100ms;
+}
+
+.primary{
+    background-color: theme.$accent-color;
+    @include mixins.hover(theme.$accent-color);
+}
+
+.secondary{
+    background-color: theme.$secondary-color;
+    @include mixins.hover(theme.$secondary-color);
+}
+
+.warn{
+    background-color: theme.$color-warn;
+    @include mixins.hover(theme.$color-warn);
+}
+
+.dark{
+    background-color: theme.$bg-color;
+    @include mixins.hover(theme.$bg-color);
+}
+    
+    
+    
+    
+    
+    
+    
+    

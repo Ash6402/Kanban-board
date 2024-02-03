@@ -1,0 +1,35 @@
+@use '/src/mixins' as mixins;
+@use '/src/color-variables.scss' as theme;
+
+:host{
+    @include mixins.authPage;
+    background-color: theme.$bg-color;
+}
+
+.heading{
+    text-align: center;
+}
+
+.error{
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.2);
+    padding-block: 0.3rem;
+    border-radius: 100px;
+    text-align: center;
+    margin-block: 0.5rem;
+}
+
+.err-msg{
+    color: red;
+}
+
+.to-sign-up{
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+}
+
+.link-to-sign-up:hover{
+   text-decoration: underline;
+   cursor: pointer; 
+}

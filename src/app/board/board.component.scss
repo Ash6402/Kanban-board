@@ -1,17 +1,21 @@
 @use '/src/mixins.scss' as mixins;
-
+@use '/src/color-variables.scss' as theme;
+:host{
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    @include mixins.fullscreen;
+    background-color: theme.$bg-color;
+    padding: 0.4rem;
+}
 .board{
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
-    @include mixins.fullscreen;
+    gap: 0.4rem;
+    height: 100%;
 
     .section{
-        padding: 0.6rem;
-        border-right: 2px solid black;
-    }
-
-    li{
-        list-style-type: none;
+        border: 2px solid theme.$secondary-color;
+        border-radius: 10px;
     }
 }
 

@@ -1,0 +1,27 @@
+@use '/src/mixins.scss' as mixins;
+@use '/src/color-variables.scss' as theme;
+
+:host{
+    @include mixins.modal;
+    .detail-form{
+        border-radius: 15px;
+        position: relative;
+        background-color: theme.$primary-color;
+        padding: 2rem;
+
+        .close-btn{
+            position: absolute;
+            padding-right: 1rem;
+            padding-top: 0.5rem;
+            background-color: transparent;
+            font-size: 1.5rem;
+            justify-self: end;
+            color: white;
+    
+            &:hover{
+                color: red;
+            }
+    
+        }
+    }
+}

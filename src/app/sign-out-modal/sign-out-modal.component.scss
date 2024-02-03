@@ -1,0 +1,22 @@
+@use '/src/mixins.scss' as mixins;
+@use '/src/color-variables.scss' as theme;
+
+:host{
+    @include mixins.modal;
+}
+
+.modal{
+    background-color: theme.$secondary-color;
+    padding: 1.2rem;
+    border-radius: 5px;
+
+    h4{
+        margin-bottom: 1rem;
+    }
+
+    .btns{
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.6rem;
+    }
+}

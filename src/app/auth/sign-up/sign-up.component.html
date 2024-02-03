@@ -1,0 +1,49 @@
+<div>
+    <h1 class="heading header-color-secondary">SIGN UP</h1>
+    <form class="form" [formGroup]="form" (ngSubmit)="submit(form)">
+        <div class="input-field"><label for="username" class="label">Username</label>
+            <input id="username" class="bg-dark" type="text" name="username" formControlName="username" />
+            <div class="error">
+            @if(!form.get('username').valid && form.get('username').touched 
+                && (!form.get('username').value || form.get('username').value.length < 3)){
+                    <span class="err-msg">Userame must be atleast 3 characters</span>
+            }
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="label" for="email">Email</label>
+            <input id="email"  type="email" class="bg-dark" name="email" formControlName ="email" #email/>
+            <div class="error">
+                @if(!form.get('email').valid && form.get('email').touched){
+                    <span class="err-msg">Invalid Email</span>
+                }@else if (error()) {
+                    <span class="err-msg">Email already exists!</span>
+                }
+            </div>
+        </div>
+        <div class="input-field">
+            <label class="label" for="passowrd">Password</label>
+            <input id="password" type="password" class="bg-dark" name="password" formControlName ="password" />
+            <span class="tip">Password must be atleast 8 characters.</span>
+        </div>
+        <div class="input-field">
+            <label class="label" for="confirm-pass">Confirm Password</label>
+            <input id="confirm-pass" class="bg-dark" type="password" name="confirm-pass" formControlName="confirm-pass"/>
+            <div class="error">
+                @if(form.errors?.['missMatch'] && form.get('password').dirty && form.get('confirm-pass').dirty){
+                    <span class="err-msg">Password does not match</span>
+                }
+            </div>
+        </div>
+        <button class="submit-btn" type="submit" [disabled]="!form.valid">
+        @if (signingUp) {
+            <app-loader size="small" />
+        } @else {
+            Sign Up
+        }
+        </button>
+    </form>
+    <div class="to-login">
+        <a routerLink="/login" class="link-to-login font-light">Already have an account? Login</a>
+    </div>
+</div>

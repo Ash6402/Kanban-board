@@ -1,0 +1,28 @@
+@use '/src/color-variables.scss' as theme;
+
+$padding: 0.5rem;
+
+:host{
+    display: grid;
+}
+
+h2{
+    padding-left: $padding;
+    text-align: center;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem;
+    position: relative;
+}
+
+.empty-msg{
+    text-align: center;
+}
+
+.loader{
+    margin-top: 1rem;
+    place-self: center;
+}
