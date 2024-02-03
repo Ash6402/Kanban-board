@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Item } from '../models/Item.model';
@@ -13,11 +13,14 @@ import { FirestoreService } from '../services/firestore.service';
   styleUrl: './detail-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailFormComponent{
-  @Output() close = new EventEmitter<null>();
+export class DetailFormComponent implements OnInit{
+  @Output() close = new EventEmitter<void>();
   listService = inject(ListService);
   fireStoreService = inject(FirestoreService);
   fb = inject(FormBuilder);
+
+  // If the form is opened to edit an existing card!
+  @Input() toEdit: Item = null;
   
   form = new FormGroup({
     'title': this.fb.control(null, Validators.required),
@@ -35,5 +38,14 @@ export class DetailFormComponent{
     
     this.fireStoreService.add$.next(item);
     this.close.emit();
+  }
+
+  ngOnInit(): void {
+    if(this.toEdit){
+      this.form.setValue({
+        title: this.toEdit.title,
+        description: this.toEdit.description,
+      })
+    }
   }
 }

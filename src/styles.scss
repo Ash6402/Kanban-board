@@ -105,3 +105,45 @@ input{
 .bg-dark{
     background-color: #0f0f0f;
 }
+
+.grid{
+    display: grid;
+}
+
+.flex{
+    display: flex;
+}
+
+.gap-2{
+    gap: 0.2rem;
+}
+
+.gap-6{
+    gap: 0.6rem;
+}
+
+.gap-10{
+    gap: 1rem;
+}
+
+.icon-small{
+    font-size: 20px;
+}
+
+.icon-default{
+    font-size: 24px;
+}
+
+.icon-medium{
+    font-size: 40x;
+}
+
+.icon-large{
+    font-size: 48px;
+}
+
+.icon-btn{
+    background: transparent;
+    display: grid;
+    place-items: center;
+}

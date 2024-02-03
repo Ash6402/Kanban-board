@@ -17,21 +17,20 @@
         }
         
         .drop-btn{
-        background-color: transparent;
-        transition: 100ms;
+            transition: 100ms;
         }
 
-        i{
-        font-size: 1.4rem;
-            color: rgb(20, 0, 70);
-        }
-
-        i:hover{
-            cursor: pointer;
-        }
-        
         .rotate{
             transform: rotate(180deg);
+        }
+
+        .edit-icon{
+            color: theme.$bg-color; 
+        }
+
+        .edit-icon:hover{
+            font-variation-settings:
+            'wght' 500,
         }
     }
 

@@ -9,6 +9,7 @@ import { HeaderComponent } from '../header/header.component';
 import { FirestoreService } from '../services/firestore.service';
 import { AuthService } from '../services/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DialogService } from '../services/dialog.service';
 
 @Component({
   selector: 'app-board',
@@ -27,6 +28,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class BoardComponent implements OnDestroy {
   private firestoreService = inject(FirestoreService);
+  dialogService = inject(DialogService);
   private user = inject(AuthService).user;
   private destroyRef = inject(DestroyRef);
   

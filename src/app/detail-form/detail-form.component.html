@@ -1,5 +1,5 @@
 <form class="detail-form form" (ngSubmit)="onSubmit()" [formGroup]="form" >
-    <button class="close-btn" type="button" (click)="close.emit()" ><i class="fa-solid fa-xmark"></i></button>
+    <button class="close-btn" type="button" (click)="close.emit()" ><span class="material-symbols-outlined">close</span></button>
     <div class="input-field">
         <label for="title" class="label">Title</label>
         <input type="text" class="bg-dark" id="title" name="title" formControlName="title" />
@@ -8,5 +8,11 @@
         <label for="description" class="label">Description</label>
         <input type="text" class="bg-dark" id="description" name="description" formControlName="description" />
     </div>
-    <button class="submit-btn">Insert</button>
+    <button class="submit-btn">
+        @if(toEdit){
+            Update 
+        }@else{
+            Insert
+        }
+    </button>
 </form>

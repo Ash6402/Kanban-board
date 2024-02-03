@@ -11,10 +11,10 @@
           <app-section [source]="done" title="done" [items]="done()" />          
        </div>
      </div> 
-     <app-button class="add-button" color="primary" (click)="insert=true">
+     <app-button class="add-button" color="primary" (click)="dialogService.showDialog()">
          <img src="../../assets/icons/add.png" /> 
      </app-button>
-     @if(insert){
-          <app-add-new-form (close)="insert=false"></app-add-new-form>
-     }
+     <!-- @if(insert){
+         <detail-form (close)="insert=false"/>
+     } -->
 </main>
