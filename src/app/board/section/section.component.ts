@@ -20,7 +20,7 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
           stagger(30,[
             animate('120ms ease-in', style({opacity: 1,}))
           ])
-        ])
+        ], {optional: true}),
       ])
     ])
   ]

@@ -149,3 +149,7 @@ input{
     display: grid;
     place-items: center;
 }
+
+.icon-warn{
+    color: theme.$color-warn;
+}

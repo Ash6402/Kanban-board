@@ -43,8 +43,11 @@ export class DetailFormComponent implements OnInit{
       title: this.form.value['title'],
       description: this.form.value['description'],
       type: 'todo',
+      id: this.toEdit?.id ?? null,
     }
     
+    this.toEdit ?
+    this.fireStoreService.update$.next(item) : 
     this.fireStoreService.add$.next(item);
     this.close.emit();
   }

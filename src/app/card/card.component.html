@@ -4,11 +4,23 @@
             <h3 class="header-color-dark">{{ item.title }}</h3>
             <button class="icon-btn" (click)="dialogService.showDialog(item)" ><span class="material-symbols-outlined edit-icon">edit</span></button>
         </div>
-        <button 
-            [appAnimate]="['rotate', 'expand']" [element]="details"
-            class="icon-btn drop-btn"><span class="material-symbols-outlined">expand_more</span>
-        </button>
-
+        <div class="flex">
+            @if(!confirmChoice){
+                <button (click)="confirmChoice=true" class="icon-btn icon-warn delete-icon">
+                    <span class="material-symbols-outlined">delete</span> 
+                </button>
+            }
+            <button
+                [appAnimate]="['rotate', 'expand']" [element]="details"
+                class="icon-btn drop-btn"><span class="material-symbols-outlined">expand_more</span>
+            </button>
+        </div>
+        @if(confirmChoice){
+            <div class="flex gap-6 choice-btns" @choiceTrigger>
+                <button class="no" (click)="confirmChoice=false">No</button>
+                <button class="yes" (click)="delete()">Yes</button>
+            </div>
+        }
     </div>
     <div class="details" #details>
         <div class="description">

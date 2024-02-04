@@ -7,11 +7,12 @@
     padding: 0.6rem;
     border-radius: 10px;
     background-color: theme.$accent-color;
+    overflow: hidden;
     .head{
+        position: relative;
         display: grid;
         grid-template-columns: 1fr min-content;
         align-items: center;
-        
         h3{
             color: theme.$primary-color;
         }
@@ -24,13 +25,42 @@
             transform: rotate(180deg);
         }
 
-        .edit-icon{
-            color: theme.$bg-color; 
+        .edit-icon, .delete-icon{
+            color: gray; 
+        }
+
+        .edit-icon:hover, .delete-icon:hover{
+            font-variation-settings:
+            'wght' 500,
         }
 
         .edit-icon:hover{
-            font-variation-settings:
-            'wght' 500,
+            color: theme.$bg-color;
+        }
+
+        .delete-icon:hover{
+            color: theme.$color-warn;
+        }
+
+        .choice-btns{
+            position: absolute;
+            border-radius: 5px;
+            top: 0;
+            right: 0;
+
+            button{
+               border-radius: 4px; 
+               color: theme.$font-light;
+               padding: 0.2rem 0.3rem;
+            }
+
+            button.no{
+                background-color: theme.$bg-color;
+            }
+
+            button.yes{
+                background-color: theme.$color-warn;
+            }
         }
     }
 

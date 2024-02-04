@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnDestroy, effect, inject } from '@angular/core';
+import { Component, DestroyRef, OnDestroy, OnInit, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppButtonComponent } from '../shared/app-button/app-button.component';
 import { SectionComponent } from './section/section.component';
@@ -26,7 +26,7 @@ import { DialogService } from '../services/dialog.service';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnDestroy {
+export class BoardComponent implements OnInit,OnDestroy {
   private firestoreService = inject(FirestoreService);
   dialogService = inject(DialogService);
   private user = inject(AuthService).user;
@@ -35,17 +35,13 @@ export class BoardComponent implements OnDestroy {
   todo = this.firestoreService.todo;
   workInProgress = this.firestoreService.workInProgress;
   done = this.firestoreService.done;
-  
-  // Variable to control the insert-new-item-modal popup
-  insert: boolean = false;
 
-  constructor(){
-    effect(() => {
-      if(this.user())
-        this.firestoreService.getItems(this.user().uid).pipe(
-          takeUntilDestroyed(this.destroyRef),
-      ).subscribe();
-    }, {allowSignalWrites: true})
+  constructor(){}
+
+  ngOnInit(): void {
+    this.firestoreService.getItems(this.user().uid)
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe();
   }
 
   ngOnDestroy(): void {

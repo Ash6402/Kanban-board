@@ -1,6 +1,6 @@
 import { Injectable, WritableSignal, inject, signal } from '@angular/core';
-import { CollectionReference, DocumentReference, Firestore, QuerySnapshot, addDoc, collection, collectionData, getDocs, query, where } from '@angular/fire/firestore';
-import { EMPTY, Observable, Subject, from, map, of, switchMap, tap } from 'rxjs';
+import { CollectionReference, DocumentReference, Firestore, QuerySnapshot, addDoc, collection, collectionData, deleteDoc, doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
+import { EMPTY, Observable, Subject, from, map, of, switchMap, take, tap } from 'rxjs';
 import { Item } from '../models/Item.model';
 
 @Injectable({
@@ -13,9 +13,9 @@ export class FirestoreService {
   private usersCollection: CollectionReference;
   private userItemsCollection: CollectionReference;
 
-  // Fetching items and adding items obserables
-  // getItems = new Subject<{id: string}>();
   add$ = new Subject<Item>();
+  update$ = new Subject<Item>();
+  delete$ = new Subject<Item>();
   
   // The item signals to use in the applications 
   todoSignal: WritableSignal<Item[]> = signal(null);
@@ -29,10 +29,34 @@ export class FirestoreService {
     this.usersCollection = collection(this.firestore, 'users');
 
     this.add$.pipe(
-      tap((item: Item) => {
+      switchMap((item: Item) => {
         // As each task new tasks goes into todo so we always add it in todo signal
         this.todoSignal.update((items) => [...items, item]); 
-        this.addItem(item);
+        return this.addItem(item);
+      })
+    ).subscribe();
+
+    this.update$.pipe(
+      switchMap((item: Item) => {
+        if(item.type=='todo')
+          this.updateSignal(this.todoSignal, item);
+        else if(item.type='work-in-progress')
+          this.updateSignal(this.workInProgressSignal, item);
+        else if(item.type='done')
+          this.updateSignal(this.doneSignal, item);
+        return this.updateItem(item);
+      })
+    ).subscribe();
+
+    this.delete$.pipe(
+      switchMap((item: Item) => {
+        if(item.type=='todo') 
+          this.removeItem(this.todoSignal, item.id);
+        if(item.type=='work-in-progress')
+          this.removeItem(this.workInProgressSignal, item.id);
+        if(item.type=='done')
+          this.removeItem(this.doneSignal, item.id);
+        return this.deleteItem(item);
       })
     ).subscribe();
   }
@@ -44,6 +68,20 @@ export class FirestoreService {
   addItem(item: Item): Observable<DocumentReference> {
     return from(addDoc(this.userItemsCollection, item))
   }
+
+  updateItem(item: Item): Observable<void>{
+    return from(updateDoc(
+      doc(this.userItemsCollection, item.id ), {
+        ...item,
+      }
+    ))
+  }
+
+  deleteItem(item: Item): Observable<void>{
+    return from(deleteDoc(
+      doc(this.userItemsCollection, item.id)
+    ))
+  }
   
   getItems(id: string){
     return of(id).pipe(
@@ -54,6 +92,7 @@ export class FirestoreService {
         this.userItemsCollection = collection(this.firestore, `users/${documentId}/items`);
         return this.filterItemsFn(collectionData(this.userItemsCollection, {idField: 'id'}) as Observable<Item[]>)
       }),
+      take(1),
       );
     } 
     
@@ -61,7 +100,6 @@ export class FirestoreService {
     return collectionData$.pipe(
       map((items: Item[]) => { 
         this.statusSignal.set('fetched');
-        console.log(items);
         items.map(
           (item: Item) => {
             if(item.type='todo') this.todoSignal.update((items) => items ? [...items, item] : [item])
@@ -72,6 +110,14 @@ export class FirestoreService {
         return EMPTY;
       })
     )
+  }
+
+  updateSignal(signal: WritableSignal<Item[]>, item: Item){
+    signal.update((items) => [...items].map((val: Item) => val.id==item.id ? {...item} : val));
+  }
+
+  removeItem(signal: WritableSignal<Item[]>, id: string){
+    signal.update((items) => [...items].filter((val: Item) => val.id !== id));
   }
 
   get todo(){
