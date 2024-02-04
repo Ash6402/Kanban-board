@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Item } from '../models/Item.model';
 import { ListService } from '../services/lists.service';
 import { FirestoreService } from '../services/firestore.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'detail-form',
@@ -12,6 +13,14 @@ import { FirestoreService } from '../services/firestore.service';
   templateUrl: './detail-form.component.html',
   styleUrl: './detail-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('enterTrigger', [
+      transition(':enter', [
+        style({opacity: 0}),
+        animate('100ms', style({opacity: 1}))
+      ])
+    ])
+  ]
 })
 export class DetailFormComponent implements OnInit{
   @Output() close = new EventEmitter<void>();

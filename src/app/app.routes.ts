@@ -6,7 +6,7 @@ import { canActivateFn } from './guards/auth.guard';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
-    {path: 'sign-up', component: SignUpComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'board', component: BoardComponent, canActivate: [canActivateFn]},
+    {path: 'sign-up', component: SignUpComponent, data: { animation: 'signUp' }},
+    {path: 'login', component: LoginComponent, data: { animation: 'login' }},
+    {path: 'board', component: BoardComponent, canActivate: [canActivateFn], data: { animation: 'board' }},
 ];

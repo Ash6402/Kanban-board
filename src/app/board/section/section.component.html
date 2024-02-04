@@ -1,8 +1,8 @@
 <h2 class="header-color-secondary">{{ title.toUpperCase() }}</h2>
 @if(status()=='fetched'){
-    <ul class="list">
+    <ul class="list" [@itemEnter]="items?.length">
         @for(item of items; track item.id) {
-            <li *ngFor="let item of items">
+            <li>
                 <app-card [item]="item" />
             </li>
         } @empty{

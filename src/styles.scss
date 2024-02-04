@@ -14,11 +14,13 @@
 
 html{
     height: 100vh;
+    overflow: hidden;
 }
 
 body{
     height: inherit;
     margin: 0;
+    background-color: theme.$bg-color;
 }
 
 button{
