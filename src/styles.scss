@@ -44,7 +44,7 @@ a{
     color: theme.$font-light;
 } 
 
-input{
+input, textarea{
     border: 1px solid gray;
     border-radius: 10px;
     padding: 0.5rem;
@@ -84,6 +84,22 @@ input{
 
 .font-dark{
     color: theme.$font-dark;
+}
+
+.font-large{
+    font-size: 1.4rem;
+}
+
+.weight-400{
+    font-weight: 400;
+}
+
+.weight-700{
+    font-weight: 700;
+}
+
+.weight-900{
+    font-weight: 900;
 }
 
 .header-color-primary{
@@ -128,6 +144,18 @@ input{
     gap: 1rem;
 }
 
+.pad-2{
+    padding: 0.2rem;
+}
+
+.pad-6{
+    padding: 0.6rem;
+}
+
+.pad-10{
+    padding: 1rem;
+}
+
 .icon-small{
     font-size: 20px;
 }
@@ -152,4 +180,13 @@ input{
 
 .icon-warn{
     color: theme.$color-warn;
+}
+
+.warn-banner{
+    background-color: rgba(255,0,0,0.6);
+    color: white;
+}
+
+.text-center{
+    text-align: center;
 }

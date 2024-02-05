@@ -8,6 +8,11 @@
         position: relative;
         background-color: theme.$primary-color;
         padding: 2rem;
+        min-width: 20rem;
+
+        input, textarea{
+            width: 100%;
+        }
 
         .close-btn{
             position: absolute;

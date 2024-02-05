@@ -1,4 +1,4 @@
-export type types = 'todo' | 'work-in-progress' | 'done';
+export type types = 'todo' | 'done' | 'work-in-progress' ;
 
 export interface Item{
     title: string,

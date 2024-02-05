@@ -9,11 +9,5 @@ export const routerAnimation =
                 }), 
                 animate('80ms',style({ opacity: 1}))
             ], {optional: true}),
-            query(':leave', [
-                style({
-                    opacity:1,
-                }),
-                animate('60ms', style({opacity: 0})),
-            ], {optional: true}),
         ])
     ])

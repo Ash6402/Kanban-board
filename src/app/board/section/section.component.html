@@ -9,6 +9,8 @@
             <p class="empty-msg font-light">There are no items!</p>
         }
     </ul>
-}@else{
+}@else if(status()=='fetching'){
     <app-loader class="loader" color="#7077a1" size="large"/>    
+}@else if(status()=='error'){
+    <h3 class="font-light error"><span class="material-symbols-outlined icon-warn">error</span> Error Fetching Data!</h3>
 }

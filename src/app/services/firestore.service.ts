@@ -1,6 +1,6 @@
 import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { CollectionReference, DocumentReference, Firestore, QuerySnapshot, addDoc, collection, collectionData, deleteDoc, doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
-import { EMPTY, Observable, Subject, from, map, of, switchMap, take, tap } from 'rxjs';
+import { EMPTY, Observable, Subject, catchError, from, map, of, switchMap, take, tap } from 'rxjs';
 import { Item } from '../models/Item.model';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class FirestoreService {
     this.add$.pipe(
       switchMap((item: Item) => {
         // As each task new tasks goes into todo so we always add it in todo signal
-        this.todoSignal.update((items) => [...items, item]); 
+        this.todoSignal.update((items) => items ? [...items, item] : [item]); 
         return this.addItem(item);
       })
     ).subscribe();
@@ -40,9 +40,9 @@ export class FirestoreService {
       switchMap((item: Item) => {
         if(item.type=='todo')
           this.updateSignal(this.todoSignal, item);
-        else if(item.type='work-in-progress')
+        else if(item.type=='work-in-progress')
           this.updateSignal(this.workInProgressSignal, item);
-        else if(item.type='done')
+        else if(item.type=='done')
           this.updateSignal(this.doneSignal, item);
         return this.updateItem(item);
       })
@@ -93,8 +93,13 @@ export class FirestoreService {
         return this.filterItemsFn(collectionData(this.userItemsCollection, {idField: 'id'}) as Observable<Item[]>)
       }),
       take(1),
-      );
-    } 
+      catchError(err => {
+        console.log(err);
+        this.statusSignal.set('error');
+        return of(err);
+      })
+    );
+  } 
     
   filterItemsFn(collectionData$ :Observable<Item[]>){
     return collectionData$.pipe(
@@ -102,9 +107,9 @@ export class FirestoreService {
         this.statusSignal.set('fetched');
         items.map(
           (item: Item) => {
-            if(item.type='todo') this.todoSignal.update((items) => items ? [...items, item] : [item])
-            else if(item.type='work-in-progress') this.workInProgressSignal.update((items) => items ? [...items, item] : [item])
-            else if (item.type='done') this.doneSignal.update((items) => items ? [...items, item] : [item])
+            if(item.type=='todo') this.todoSignal.update((items) => items ? [...items, item] : [item])
+            else if(item.type=='work-in-progress') this.workInProgressSignal.update((items) => items ? [...items, item] : [item])
+            else if (item.type=='done') this.doneSignal.update((items) => items ? [...items, item] : [item])
           }
         )
         return EMPTY;
@@ -141,5 +146,4 @@ export class FirestoreService {
     this.workInProgressSignal.set(null);
     this.done.set(null);
   }
-
 }

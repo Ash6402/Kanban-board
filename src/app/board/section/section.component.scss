@@ -22,6 +22,13 @@ ul{
     text-align: center;
 }
 
+.error{
+    display: flex;
+    justify-content: center;
+    color: theme.$color-warn;
+    gap: 0.4rem;
+}
+
 .loader{
     margin-top: 1rem;
     place-self: center;

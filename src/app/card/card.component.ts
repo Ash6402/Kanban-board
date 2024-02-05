@@ -19,7 +19,7 @@ import { FirestoreService } from '../services/firestore.service';
     trigger('choiceTrigger',[
       transition(':enter', [
         style({right: '-10%'}),
-        animate('80ms ease-in', style({right: 0})),
+        animate('120ms cubic-bezier(0.25, 1, 0.5, 1)', style({right: 0})),
       ]),
       transition(':leave', [
         animate('50ms', style({opacity: 0}))

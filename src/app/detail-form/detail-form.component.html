@@ -6,9 +6,9 @@
     </div>
     <div class="input-field">
         <label for="description" class="label">Description</label>
-        <input type="text" class="bg-dark" id="description" name="description" formControlName="description" />
+        <textarea rows="5" type="text" class="bg-dark" id="description" name="description" formControlName="description" ></textarea>
     </div>
-    <button class="submit-btn">
+    <button [disabled]="!form.valid" class="submit-btn">
         @if(toEdit){
             Update 
         }@else{

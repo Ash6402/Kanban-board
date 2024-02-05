@@ -5,6 +5,8 @@ import { BoardComponent } from "./board/board.component";
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LoginComponent } from './auth/login/login.component';
 import { routerAnimation } from './animations/animations';
+import { fromEvent } from 'rxjs';
+import { ConnectionStatusService } from './services/connection-status.service';
 
 @Component({
     selector: 'app-root',
@@ -19,8 +21,9 @@ import { routerAnimation } from './animations/animations';
 export class AppComponent {
 
   private context = inject(ChildrenOutletContexts);
-
-  constructor() {}
+  online = inject(ConnectionStatusService).online;
+  constructor() {
+  }
 
   getRouterAnimationData(){
     return this.context.getContext('primary')?.route?.snapshot?.data['animation'];
