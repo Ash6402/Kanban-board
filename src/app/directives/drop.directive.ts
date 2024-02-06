@@ -20,7 +20,6 @@ export class DropDirective {
   @HostListener('dragover', ['$event']) dragOver(event){
     event.preventDefault();
     this.hoveredSection.set(this.hovered);
-    console.log(this.hovered);
   }
 
   @HostListener('drop', ['$event']) drop(event){

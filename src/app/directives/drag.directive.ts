@@ -24,21 +24,22 @@ export class DragDirective implements OnInit {
   }
 
   @HostListener('mousedown', ['$event']) mouseDown(event: MouseEvent){
+    // console.log(event);
     // this.offsetX = event.offsetX;
     // this.offsetY = event.offsetY;
     // this.width = (<HTMLElement>event.target).clientWidth;
   }
 
   @HostListener('drag', ['$event']) drag(event: DragEvent){
-    // this.renderer.setStyle(this.el.nativeElement, 'position', 'absolute');
+    // console.log(event);
     // this.renderer.setStyle(this.el.nativeElement, 'width', `${this.width}px`);
-    // this.renderer.setStyle(this.el.nativeElement, 'left', `${event.pageX - this.offsetX}px`);
-    // this.renderer.setStyle(this.el.nativeElement, 'top', `${event.pageY - this.offsetY}px`);
+    // this.renderer.setStyle(this.el.nativeElement, 'position', 'absolute');
+    // this.renderer.setStyle(this.el.nativeElement, 'left', `${event.clientX - this.offsetX}px`);
+    // this.renderer.setStyle(this.el.nativeElement, 'top', `${event.clientY - this.offsetY}px`);
   } 
 
   @HostListener('dragend', ['$event']) dragEnd(event: DragEvent){
     // this.renderer.setStyle(this.el.nativeElement, 'position', 'relative');
-    // this.renderer.setStyle(this.el.nativeElement, 'width', 'inherit');
     // this.renderer.setStyle(this.el.nativeElement, 'top', '0px');
     // this.renderer.setStyle(this.el.nativeElement, 'left', '0px');
   }

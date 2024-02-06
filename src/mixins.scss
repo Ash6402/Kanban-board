@@ -32,6 +32,22 @@
     }  
 }
 
+@mixin message($type){
+    padding-block: 0.3rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-block: 0.5rem;
+
+    @if $type == 'error'{
+        border: 1px solid red;
+        background-color: rgba(255, 0, 0, 0.2);
+    }@else if $type == 'success' {
+        border: 1px solid green;
+        background-color: rgba(0, 255, 0, 0.2);
+    }
+
+}
+
 @mixin modal{
     position: absolute;
     width: 100%;

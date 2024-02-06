@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use './color-variables.scss' as theme;
+@use './mixins.scss' as mixins;
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 *, *::before, *::after{
@@ -49,7 +50,7 @@ input, textarea{
     border-radius: 10px;
     padding: 0.5rem;
     font-size: 1rem;
-    width: min(15rem, 70vw);
+    width: min(20rem, 70vw);
     color: theme.$font-light;
 }
 
@@ -75,6 +76,34 @@ input, textarea{
     color: theme.$primary-color;
     cursor: not-allowed;
 }
+
+.link{
+    margin-top: 0.4rem;
+    padding-left: 0.2rem;
+    font-size: 0.8rem;
+}
+
+.link:hover{
+   text-decoration: underline;
+   cursor: pointer; 
+}
+
+.error{
+    @include mixins.message('error');
+}
+
+.err-msg{
+    color: red;
+}
+
+.success{
+    @include mixins.message('success');
+}
+
+.success-msg{
+    color: white;
+}
+
 
 // basic utilities
 

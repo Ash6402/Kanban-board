@@ -1,10 +1,9 @@
 import { Injectable, WritableSignal, inject, signal } from '@angular/core';
-import { ActionCodeSettings, Auth, User, UserCredential, authState, createUserWithEmailAndPassword, sendEmailVerification, sendSignInLinkToEmail, signInWithEmailAndPassword, signInWithEmailLink, updateProfile, user, } from '@angular/fire/auth';
+import { Auth, User, UserCredential, authState, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, sendSignInLinkToEmail, signInWithEmailAndPassword, signInWithEmailLink, updateProfile, user, } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
-import { catchError, from, of, switchMap, tap } from 'rxjs';
+import { from, switchMap, tap } from 'rxjs';
 import { FirestoreService } from './firestore.service';
 import { Router } from '@angular/router';
-import { FirebaseError } from '@angular/fire/app';
 
 interface Credentials{
   username?: string,
@@ -57,6 +56,10 @@ export class AuthService {
         })
       }),
     )
+  }
+
+  resetPassowrd(email: string){
+    return  from(sendPasswordResetEmail(this.auth, email))
   }
   
   signOut(){
