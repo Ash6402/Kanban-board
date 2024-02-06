@@ -24,10 +24,12 @@ export class DropDirective {
   }
 
   @HostListener('drop', ['$event']) drop(event){
+    if(!this.draggedItem()) return;
     this.draggedItem().type = this.hovered as types; 
     this.sourceList().update((items: Item[]) => items.filter(item => item != this.draggedItem()))
     this.list.update((items: Item[]) => items ? [...items, this.draggedItem()] : [this.draggedItem()] ); 
     this.firestoreService.update$.next(this.draggedItem());
+    this.draggedItem.set(null);
   }
   constructor() { }
 

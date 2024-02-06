@@ -94,7 +94,6 @@ export class FirestoreService {
       }),
       take(1),
       catchError(err => {
-        console.log(err);
         this.statusSignal.set('error');
         return of(err);
       })

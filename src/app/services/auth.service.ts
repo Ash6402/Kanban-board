@@ -1,9 +1,10 @@
-import { Injectable, WritableSignal, inject, signal, effect } from '@angular/core';
-import { Auth, User, UserCredential, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, user, } from '@angular/fire/auth';
+import { Injectable, WritableSignal, inject, signal } from '@angular/core';
+import { ActionCodeSettings, Auth, User, UserCredential, authState, createUserWithEmailAndPassword, sendEmailVerification, sendSignInLinkToEmail, signInWithEmailAndPassword, signInWithEmailLink, updateProfile, user, } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore';
-import { from, switchMap } from 'rxjs';
+import { catchError, from, of, switchMap, tap } from 'rxjs';
 import { FirestoreService } from './firestore.service';
 import { Router } from '@angular/router';
+import { FirebaseError } from '@angular/fire/app';
 
 interface Credentials{
   username?: string,
@@ -26,7 +27,6 @@ export class AuthService {
   constructor() {
     this.authState$.subscribe({
       next: (user: User | null) => {
-        console.log(user);
         if(user){
           this.userSignal.set(user);
           this.router.navigate(['/board']);
@@ -49,6 +49,7 @@ export class AuthService {
     return from(
       createUserWithEmailAndPassword(this.auth, credentials.email, credentials.password)
     ).pipe(
+      tap((userCredentails: UserCredential) => sendEmailVerification(userCredentails.user)),
       switchMap((UserCredential: UserCredential) => {
         updateProfile(UserCredential.user, {displayName: credentials.username})
         return this.firestoreService.addNewUser({
@@ -57,7 +58,7 @@ export class AuthService {
       }),
     )
   }
-
+  
   signOut(){
     return from(this.auth.signOut());
   }
