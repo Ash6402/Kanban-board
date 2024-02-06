@@ -1,6 +1,6 @@
 <div class="container" [@animation]="getRouterAnimationData()">
     @if(!online()){
-        <div class="warn-banner pad-6 font-large weight-700 text-center">No Internet Connection!</div>
+        <div class="warn-banner pad-6 font-large weight-700 text-center" @slide>No Internet Connection!</div>
     }
     <router-outlet></router-outlet>
 </div>

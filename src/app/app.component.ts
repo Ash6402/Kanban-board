@@ -4,8 +4,7 @@ import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { BoardComponent } from "./board/board.component";
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LoginComponent } from './auth/login/login.component';
-import { routerAnimation } from './animations/animations';
-import { fromEvent } from 'rxjs';
+import { routerAnimation, slideAnimation } from './animations/animations';
 import { ConnectionStatusService } from './services/connection-status.service';
 
 @Component({
@@ -16,6 +15,7 @@ import { ConnectionStatusService } from './services/connection-status.service';
     imports: [CommonModule, RouterOutlet, BoardComponent, SignUpComponent, LoginComponent],
     animations: [
       routerAnimation,
+      slideAnimation,
     ]
 })
 export class AppComponent {

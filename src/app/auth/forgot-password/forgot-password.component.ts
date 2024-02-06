@@ -28,13 +28,14 @@ export class ForgotPasswordComponent {
   resetPass(){
     this.status.set('sending');
     this.authService.resetPassowrd(this.form.get('email').value)
-    .pipe(
-      catchError((err: FirebaseError) => {
-        this.status.set('error');
-        return of(this.error.set(err.code.split('/')[1].replace('-', ' ')))
-      })
-    ).subscribe(() => {
-      this.status.set('sent');
+      .subscribe({
+        next :() => {
+          this.status.set('sent');
+        },
+        error: (err: FirebaseError) => {
+          this.status.set('error');
+          this.error.set(err.code.split('/')[1].replace('-', ' '))
+      }
     });
   }
 }
