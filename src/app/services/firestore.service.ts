@@ -16,12 +16,13 @@ export class FirestoreService {
   add$ = new Subject<Item>();
   update$ = new Subject<Item>();
   delete$ = new Subject<Item>();
+  updateLists$ = new Subject<Item>();
   
   // The item signals to use in the applications 
   todoSignal: WritableSignal<Item[]> = signal(null);
   workInProgressSignal: WritableSignal<Item[]> = signal(null);
   doneSignal: WritableSignal<Item[]> = signal(null);
-  
+
   // variable for managing the fetching state of the items in firestore
   statusSignal: WritableSignal<'pending' | 'fetching' | 'fetched' | 'error'> = signal('pending');
   
@@ -50,13 +51,37 @@ export class FirestoreService {
 
     this.delete$.pipe(
       switchMap((item: Item) => {
-        if(item.type=='todo') 
+        if(item.type=='todo')
           this.removeItem(this.todoSignal, item.id);
         if(item.type=='work-in-progress')
           this.removeItem(this.workInProgressSignal, item.id);
         if(item.type=='done')
           this.removeItem(this.doneSignal, item.id);
         return this.deleteItem(item);
+      })
+    ).subscribe();
+
+    this.updateLists$.pipe(
+      tap((item: Item) => {
+        this.removeItem(this.todoSignal, item.id)
+        this.removeItem(this.workInProgressSignal, item.id)
+        this.removeItem(this.doneSignal, item.id)
+
+        this.update$.next(item);
+
+        switch(item.type){
+          case 'todo': 
+            this.todoSignal.update((items: Item[]) => items ? [...items, item] : [item])
+            return
+          
+          case 'work-in-progress': 
+            this.workInProgressSignal.update((items: Item[]) => items ? [...items, item] : [item])
+            return
+
+          case 'done': 
+            this.doneSignal.update((items: Item[]) => items ? [...items, item] : [item])
+            return
+          }
       })
     ).subscribe();
   }
@@ -117,23 +142,25 @@ export class FirestoreService {
   }
 
   updateSignal(signal: WritableSignal<Item[]>, item: Item){
+    if(!signal()) return;
     signal.update((items) => [...items].map((val: Item) => val.id==item.id ? {...item} : val));
   }
 
   removeItem(signal: WritableSignal<Item[]>, id: string){
+    if(!signal()) return;
     signal.update((items) => [...items].filter((val: Item) => val.id !== id));
   }
 
   get todo(){
-    return this.todoSignal; 
+    return this.todoSignal.asReadonly();
   }
 
   get workInProgress(){
-    return this.workInProgressSignal;
+    return this.workInProgressSignal.asReadonly();
   }
 
   get done(){
-    return this.doneSignal;
+    return this.doneSignal.asReadonly();
   }
 
   get status(){
@@ -143,6 +170,6 @@ export class FirestoreService {
   reset(){
     this.todoSignal.set(null);
     this.workInProgressSignal.set(null);
-    this.done.set(null);
+    this.doneSignal.set(null);
   }
 }

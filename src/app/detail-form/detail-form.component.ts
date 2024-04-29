@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Item } from '../models/Item.model';
-import { ListService } from '../services/lists.service';
 import { FirestoreService } from '../services/firestore.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 
@@ -24,7 +23,6 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 export class DetailFormComponent implements OnInit{
   @Output() close = new EventEmitter<void>();
-  listService = inject(ListService);
   fireStoreService = inject(FirestoreService);
   fb = inject(FormBuilder);
 

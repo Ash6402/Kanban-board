@@ -1,6 +1,6 @@
-import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2, inject, input } from '@angular/core';
 import { Item } from '../models/Item.model';
-import { ListService } from '../services/lists.service'
+import { DragandDropService } from '../services/draganddrop.service';
 
 @Directive({
   selector: '[appDrag]',
@@ -13,12 +13,12 @@ export class DragDirective implements OnInit {
   offsetX: number;
   offsetY: number;
   width: number;
-  @Input({required: true}) item: Item;
-  draggedItem = inject(ListService).dragged;
+  item = input.required<Item>();
+  draggedItem = inject(DragandDropService).dragged;
 
   @HostListener('dragstart', ['$event']) dragStart(event: DragEvent){
     this.renderer.setStyle(event.target, 'transition', 'none'); 
-    this.draggedItem.set(this.item);
+    this.draggedItem.set(this.item());
   }
 
   @HostListener('mousedown', ['$event']) mouseDown(event: MouseEvent){

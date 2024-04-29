@@ -1,7 +1,6 @@
-import { Component,  Input, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from 'src/app/card/card.component';
-import { Item } from 'src/app/models/Item.model';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { LoaderComponent } from 'src/app/shared/loader.component';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
@@ -27,6 +26,6 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 })
 export class SectionComponent {
   status = inject(FirestoreService).status;
-  @Input({required: true}) title: string;
-  @Input({required: true}) items: Item[];
+  title = input.required();
+  items = input.required();
 }

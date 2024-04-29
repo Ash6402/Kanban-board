@@ -1,33 +1,29 @@
-import { Directive,  HostListener, Input, Renderer2, WritableSignal, inject } from '@angular/core';
-import { Item, types } from '../models/Item.model';
-import { ListService } from '../services/lists.service';
+import { Directive,  HostListener, Renderer2, inject, input } from '@angular/core';
+import { types } from '../models/Item.model';
 import { FirestoreService } from '../services/firestore.service';
+import { DragandDropService } from '../services/draganddrop.service';
 
 @Directive({
   selector: '[appDrop]',
   standalone: true,
 })
 export class DropDirective {
-  @Input({required: true}) list: WritableSignal<Item[]>; 
-  @Input({required: true}) hovered: string;
-  listService = inject(ListService);
+  hovered = input.required<string>();
+  ddService = inject(DragandDropService);
   firestoreService = inject(FirestoreService);
   renderer = inject(Renderer2);
-  draggedItem = this.listService.dragged;
-  sourceList = this.listService.source;
-  hoveredSection = this.listService.hovered;
+  draggedItem = this.ddService.dragged;
+  hoveredSection = this.ddService.hovered;
 
-  @HostListener('dragover', ['$event']) dragOver(event){
+  @HostListener('dragover', ['$event']) dragOver(event: DragEvent){
     event.preventDefault();
-    this.hoveredSection.set(this.hovered);
+    this.hoveredSection.set(this.hovered());
   }
 
-  @HostListener('drop', ['$event']) drop(event){
+  @HostListener('drop', ['$event']) drop(){
     if(!this.draggedItem()) return;
-    this.draggedItem().type = this.hovered as types; 
-    this.sourceList().update((items: Item[]) => items.filter(item => item != this.draggedItem()))
-    this.list.update((items: Item[]) => items ? [...items, this.draggedItem()] : [this.draggedItem()] ); 
-    this.firestoreService.update$.next(this.draggedItem());
+    this.draggedItem().type = this.hovered() as types; 
+    this.firestoreService.updateLists$.next(this.draggedItem())
     this.draggedItem.set(null);
   }
   constructor() { }
