@@ -59,7 +59,7 @@ export class AuthService {
   }
 
   resetPassowrd(email: string){
-    return  from(sendPasswordResetEmail(this.auth, email))
+    return from(sendPasswordResetEmail(this.auth, email))
   }
   
   signOut(){
