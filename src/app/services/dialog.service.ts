@@ -1,4 +1,4 @@
-import { ApplicationRef, EnvironmentInjector, Injectable, createComponent, inject } from '@angular/core';
+import { ApplicationRef, EnvironmentInjector, Injectable, createComponent, inject, input } from '@angular/core';
 import { DetailFormComponent } from '../detail-form/detail-form.component';
 import { Item } from '../models/Item.model';
 

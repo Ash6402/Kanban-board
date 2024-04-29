@@ -24,8 +24,9 @@
     </div>
     <div class="details" #details>
         <div class="description">
-            <p>Description</p>
+            <p class="desc-heading">Description</p>
             <p class="font-dark">{{ item.description }}</p>
+            <p class="text-right pad-t-10">Added At: <strong>{{ item.addedAt | date:'longDate'}}</strong></p>
         </div>
     </div>
 </div>

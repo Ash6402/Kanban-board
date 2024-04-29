@@ -1,7 +1,7 @@
-<h2 class="header-color-secondary">{{ title.toUpperCase() }}</h2>
+<h2 class="header-color-secondary">{{ title().toUpperCase() }}</h2>
 @if(status()=='fetched'){
     <ul class="list" [@itemEnter]="items?.length">
-        @for(item of items; track item.id) {
+        @for(item of items(); track item.id) {
             <li>
                 <app-card [item]="item" />
             </li>

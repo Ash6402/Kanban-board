@@ -181,8 +181,24 @@ input, textarea{
     padding: 0.6rem;
 }
 
+.pad-t-6{
+    padding-top: 0.6rem;
+}
+
+.pad-b-6{
+    padding-bottom: 0.6rem;
+}
+
 .pad-10{
     padding: 1rem;
+}
+
+.pad-t-10{
+    padding-top: 1rem;
+}
+
+.pad-b-10{
+    padding-top: 1rem;
 }
 
 .icon-small{
@@ -218,4 +234,12 @@ input, textarea{
 
 .text-center{
     text-align: center;
+}
+
+.text-right{
+    text-align: right;
+}
+
+.bold{
+    font-weight: 700;
 }

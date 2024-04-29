@@ -68,9 +68,13 @@
         display: grid;
         grid-template-rows: 0fr;
         transition: grid-template-rows 100ms ease-out;
-
+        
         .description{
             overflow: hidden;
+            .desc-heading{
+                padding-block: 1rem 0.3rem;
+            }
+
         }
     }
 

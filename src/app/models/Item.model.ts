@@ -5,6 +5,7 @@ export interface Item{
     description: string,
     type: types,
     id?: string,
+    addedAt: number
 }
 
 

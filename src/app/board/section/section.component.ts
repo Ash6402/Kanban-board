@@ -4,6 +4,7 @@ import { CardComponent } from 'src/app/card/card.component';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { LoaderComponent } from 'src/app/shared/loader.component';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { Item } from 'src/app/models/Item.model';
 
 @Component({
   selector: 'app-section',
@@ -26,6 +27,6 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 })
 export class SectionComponent {
   status = inject(FirestoreService).status;
-  title = input.required();
-  items = input.required();
+  title = input.required<string>();
+  items = input.required<Item[]>();
 }

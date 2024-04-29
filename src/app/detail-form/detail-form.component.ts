@@ -27,7 +27,7 @@ export class DetailFormComponent implements OnInit{
   fb = inject(FormBuilder);
 
   // If the form is opened to edit an existing card!
-  @Input() toEdit: Item = null;
+  @Input() toEdit: Item;
   
   form = new FormGroup({
     'title': this.fb.control(null, Validators.required),
@@ -42,6 +42,7 @@ export class DetailFormComponent implements OnInit{
       description: this.form.value['description'],
       type: 'todo',
       id: this.toEdit?.id ?? null,
+      addedAt: Date.now()
     }
     
     this.toEdit ?
