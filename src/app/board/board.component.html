@@ -8,7 +8,7 @@
           <app-section [source]="workInProgress" title="work in progress" [items]="workInProgress()" />           
        </div>
        <div class="section done" hovered="done" appDrop [list]="done">
-          <app-section [source]="done" title="done" [items]="done()" />        
+          <app-section [source]="done" title="done" [items]="done()" /> 
        </div>
      </div> 
      <app-button class="add-button" color="primary" (click)="dialogService.showDialog()">

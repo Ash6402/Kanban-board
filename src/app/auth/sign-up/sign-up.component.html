@@ -12,7 +12,9 @@
         </div>
         <div class="input-field">
             <label class="label" for="email">Email</label>
-            <input id="email"  type="email" class="bg-dark" name="email" formControlName ="email" #email/>
+            <input id="email"  type="email" class="bg-dark" name="email" 
+            formControlName ="email" 
+            [ngClass]="error() ? 'already-exists' : ''" />
             <div class="error-container">
                 @if(!form.get('email').valid && form.get('email').touched){
                     <span class="err-msg">Invalid Email</span>

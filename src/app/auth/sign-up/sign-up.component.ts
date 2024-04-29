@@ -21,8 +21,7 @@ export class SignUpComponent {
   destroyRef = inject(DestroyRef);
   signingUp = false;
   error = signal(null);
-  @ViewChild('email') email: ElementRef;
-  renderer = inject(Renderer2);   
+  renderer = inject(Renderer2); 
   router = inject(Router); 
 
   form = new FormGroup({
@@ -43,16 +42,13 @@ export class SignUpComponent {
       next: () => {
         this.signingUp = false;
         this.router.navigate(['/login']);
-        console.log("sign-up Successful");
       },
       error: (err) => {
         this.signingUp = false;
         this.error.set(err);
-        this.renderer.addClass(this.email.nativeElement, 'already-exists'); 
         console.log(err);
       }
     });
   }
-
 }
 

@@ -16,8 +16,6 @@ export class DragDirective implements OnInit {
   @Input({required: true}) item: Item;
   draggedItem = inject(ListService).dragged;
 
-  
-
   @HostListener('dragstart', ['$event']) dragStart(event: DragEvent){
     this.renderer.setStyle(event.target, 'transition', 'none'); 
     this.draggedItem.set(this.item);
